@@ -1,4 +1,4 @@
-#include "../headers/dict.h"
+#include "dict.h"
 
 dict_t** dict_alloc(void) 
 {

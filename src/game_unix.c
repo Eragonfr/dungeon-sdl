@@ -1,4 +1,4 @@
-#include "../../unix/headers/game_unix.h"
+#include "game_unix.h"
 
 #ifdef __unix__
 

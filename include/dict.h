@@ -2,6 +2,7 @@
 #define dict_h
 
 #include <stdlib.h>
+#include <string.h>
 
 // based on https://gist.github.com/kylef/86784/fe97567ec9baf5c0dce3c7fcbec948e21dfcce09#file-dict-c
 

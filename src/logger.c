@@ -1,4 +1,4 @@
-#include "../headers/logger.h"
+#include "logger.h"
 
 #define BLACK            0
 #define RED              1
