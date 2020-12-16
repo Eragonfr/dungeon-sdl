@@ -22,7 +22,7 @@ This project is a basic C [SDL2][SDL] project that uses [CMake][] as a build sys
 
 ```sh
 # Clone this repo
-git clone https://gitlab.com/aminosbh/dungeon-sdl.git
+git clone https://github.com/Eragonfr/dungeon-sdl
 cd dungeon-sdl
 git submodule update --init --recursive
 
