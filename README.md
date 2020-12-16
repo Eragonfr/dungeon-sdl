@@ -9,10 +9,10 @@ This project is a basic C [SDL2][SDL] project that uses [CMake][] as a build sys
 - C Compiler (gcc, ...)
 - [CMake][]
 - [SDL2][SDL] library
+- [SDL2_image][] library
 
 **Optional packages:**
 
-- [SDL2_image][] library
 - [SDL2_ttf][] library
 - [SDL2_net][] library
 - [SDL2_mixer][] library
@@ -24,6 +24,7 @@ This project is a basic C [SDL2][SDL] project that uses [CMake][] as a build sys
 # Clone this repo
 git clone https://gitlab.com/aminosbh/dungeon-sdl.git
 cd dungeon-sdl
+git submodule update --init --recursive
 
 # Create a build folder
 mkdir build
