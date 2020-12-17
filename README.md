@@ -1,6 +1,6 @@
 # Dungeon sdl
 
-This project is a basic C [SDL2][SDL] project that uses [Meson][https://mesonbuild.com/] as a build system.
+This project is a basic C [SDL2][SDL] project that uses [Meson](https://mesonbuild.com/) as a build system.
 
 
 ## Dependencies
