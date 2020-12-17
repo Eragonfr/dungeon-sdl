@@ -6,10 +6,10 @@ This project is a basic C [SDL2][SDL] project that uses [Meson](https://mesonbui
 ## Dependencies
 
 - C Compiler (gcc, ...)
-- [Meson][https://mesonbuild.com/]
-- [SDL]: https://www.libsdl.org
-- [Git]: https://git-scm.com
-- [SDL2_image]: https://www.libsdl.org/projects/SDL_image
+- [Meson](https://mesonbuild.com/)
+- [SDL](https://www.libsdl.org)
+- [Git](https://git-scm.com)
+- [SDL2_image](https://www.libsdl.org/projects/SDL_image)
 
 **Optional packages:**
 
