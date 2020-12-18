@@ -80,7 +80,12 @@ char* filePathToTextureId(char* fname, bool folderAsPrefix, const char* pathDeli
 	}
 
 	// get last path item (e.g real file name)
+	#ifdef _WIN32
 	char* lastPathItem = strrchr(fname, '\\') + 1;
+	#endif
+	#ifdef __unix__
+	char* lastPathItem = strrchr(fname, '/') + 1;
+	#endif
 	if (lastPathItem == NULL)
 	{
 		// todo: errcode
