@@ -15,6 +15,12 @@
 /// </summary>
 #define ERRCODE_SDL_RENDER_INIT_FAILED     3
 
+/// <summary>
+///	 Texture manager memory allocation failed
+/// </summary>
 #define ERRCODE_GAME_TEXMGR_MALLOC		   4
 
+/// <summary>
+///	 Game manager memory allocation failed
+/// </summary>
 #define ERRCODE_GAME_MALLOC				   5

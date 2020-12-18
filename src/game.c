@@ -14,7 +14,7 @@ Game* GAME_Init(const char* title, int width, int height, bool fullscreen)
 
 	LOG_SUCCESS("SDL subsystems initialized");
 
-	// create window
+	// create window and check for nullptr
 	SDL_Window* window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, flags | SDL_WINDOW_SHOWN);
 	if (window == NULL)
 	{
@@ -23,7 +23,7 @@ Game* GAME_Init(const char* title, int width, int height, bool fullscreen)
 
 	LOG_SUCCESS("SDL window initialized");
 
-	// create renderer
+	// create renderer and check for nullptr
 	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
 	if (!renderer)
 	{
@@ -34,19 +34,17 @@ Game* GAME_Init(const char* title, int width, int height, bool fullscreen)
 	LOG_SUCCESS("SDL renderer initialized");
 
 
-	// initialize texture manager
+	// initialize texture manager and check for nullptr
 	GAME_TextureManager* texmgr = (GAME_TextureManager*)malloc(sizeof(struct GAME_TextureManager));
 	if (texmgr == NULL)
 	{
 		LOG_CRITICAL(ERRCODE_GAME_TEXMGR_MALLOC, "Texture manager memory allocation failed");
 	}
 
-	// todo: dict malloc here
+	texmgr->dict = dict_alloc();
+	texmgr->renderer = renderer;
 
-//	texmgr->dict = dict_alloc();
-//	texmgr->renderer = renderer;
-
-	/// initialize game struct
+	// initialize game struct
 	Game* game = (Game*)malloc(sizeof(Game));
 	if (game == NULL)
 	{
@@ -84,11 +82,16 @@ void GAME_Render(Game* game)
 {
 	SDL_RenderClear(game->renderer);
 
+	SDL_Rect rect = { 5, 5, 50, 50 };
+	TEXMGR_Draw(game->textureManager, "assets:placeholder", &rect);
+
 	SDL_RenderPresent(game->renderer);
 }
 
 void GAME_Clean(Game* game)
 {
+	// clean SDL (window, renderer)
+
 	SDL_DestroyWindow(game->window);
 	LOG_SUCCESS("SDL window destroyed");
 

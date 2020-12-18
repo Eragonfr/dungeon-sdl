@@ -7,6 +7,6 @@
 #include <windows.h>
 #include <tchar.h>
 #include <strsafe.h>
-#include <Shlwapi.h>
+#include <shlwapi.h>
 
 #endif
