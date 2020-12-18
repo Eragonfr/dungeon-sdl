@@ -19,7 +19,7 @@ int match(const char* string, const char* pattern) {
 }
 
 int GAME_ImportAssetsAll(Game* game, const char* basePath, const char* filter) {
-	//const char* regex = "[^\\s]+(\\.(jpe?g|png|gif|bmp))$";
+	const char* regex = "[^\\s]+(\\.(jpe?g|png|gif|bmp))$";
 	char path[1000];
 	struct dirent* dp;
 	DIR* dir = opendir(basePath);
@@ -34,8 +34,8 @@ int GAME_ImportAssetsAll(Game* game, const char* basePath, const char* filter) {
 			strcat(path, "/");
 			strcat(path, dp->d_name);
 
-			DIR* secdir = opendir(path);
-			if (!secdir) {
+			DIR *secdir = opendir(path);
+			if ((!secdir) && match(path, regex)) {
 				TEXMGR_Load(game->textureManager, "placeholder", path);
 
 				// todo: move to texmgr_load with success/error

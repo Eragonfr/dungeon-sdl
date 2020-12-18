@@ -1,7 +1,7 @@
 project('SDL dungeon', 'c', version: '0.0.1')
 
 sdl2_dep = dependency('sdl2')
-sdl2_image_dep = dependency('sdl2_image')
+sdl2_image_dep = dependency('SDL2_image')
 
 incdir = include_directories('include')
 
