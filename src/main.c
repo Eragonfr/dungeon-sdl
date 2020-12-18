@@ -6,7 +6,7 @@
 #define FPS					60
 #define FRAME_DELAY 1000 / FPS
 
-int main(const int argc, const char* argv[])
+int main(int argc, char** argv)
 {
 	unsigned int frameStart;
 	int frameTime;

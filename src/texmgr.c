@@ -1,13 +1,13 @@
 #include "../include/texmgr.h"
 
-int TEXMGR_Load(GAME_TextureManager* mgr, const char* id, const char* file)
+int TEXMGR_Load(GAME_TextureManager* mgr, char* id, const char* file)
 {
 	// create surface and check for nullptr
 	SDL_Surface* surface = IMG_Load(file);
 	if (surface == NULL)
 	{
 		LOG_SDL_ERROR();
-		return;
+		return 0;
 	}
 
 	// create texture from surface and check for nullptr
@@ -15,7 +15,7 @@ int TEXMGR_Load(GAME_TextureManager* mgr, const char* id, const char* file)
 	if (tex == NULL)
 	{
 		LOG_SDL_ERROR();
-		return;
+		return 0;
 	}
 
 	dict_addItem(mgr->dict, id, tex);
@@ -27,12 +27,12 @@ int TEXMGR_Load(GAME_TextureManager* mgr, const char* id, const char* file)
 	return 1;
 }
 
-SDL_Texture* TEXMGR_Get(GAME_TextureManager* mgr, const char* id)
+SDL_Texture* TEXMGR_Get(GAME_TextureManager* mgr, char* id)
 {
 	return (SDL_Texture*)dict_getItem(*mgr->dict, id);
 }
 
-void TEXMGR_Drop(GAME_TextureManager* mgr, const char* id)
+void TEXMGR_Drop(GAME_TextureManager* mgr, char* id)
 {
 	dict_delItem(mgr->dict, id);
 }
@@ -43,7 +43,7 @@ void TEXMGR_Clean(GAME_TextureManager* mgr)
 	free(mgr);
 }
 
-void TEXMGR_Draw(GAME_TextureManager* mgr, const char* id, SDL_Rect* rect)
+void TEXMGR_Draw(GAME_TextureManager* mgr, char* id, SDL_Rect* rect)
 {
 	SDL_Texture* tex = TEXMGR_Get(mgr, id);
 	SDL_RenderCopy(mgr->renderer, tex, NULL, rect);
@@ -84,7 +84,7 @@ char* filePathToTextureId(char* fname, bool folderAsPrefix, const char* pathDeli
 	if (lastPathItem == NULL)
 	{
 		// todo: errcode
-		return;
+		return NULL;
 	}
 
 	int lastPathItemLength = strlen(lastPathItem);

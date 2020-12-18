@@ -32,21 +32,21 @@ typedef struct GAME_TextureManager
 /// <param name="id">Target texture id</param>
 /// <param name="fname">File path</param>
 /// <returns>If the texture was loaded, returns 1. Otherwise, returns 0</returns>
-int TEXMGR_Load(GAME_TextureManager* mgr, const char* id, const char* fname);
+int TEXMGR_Load(GAME_TextureManager* mgr, char* id, const char* fname);
 
 /// <summary>
 ///  Get a texture from a texture manager
 /// </summary>
 /// <param name="id">Target texture id</param>
 /// <returns>Stored image with the corresponding id</returns>
-SDL_Texture* TEXMGR_Get(GAME_TextureManager* mgr, const char* id);
+SDL_Texture* TEXMGR_Get(GAME_TextureManager* mgr, char* id);
 
 /// <summary>
 ///  Drop an image from a texture manager
 /// </summary>
 /// <param name="mgr">Target texture manager</param>
 /// <param name="id">Target texture id</param>
-void TEXMGR_Drop(GAME_TextureManager* mgr, const char* id);
+void TEXMGR_Drop(GAME_TextureManager* mgr, char* id);
 
 /// <summary>
 ///  Clean the texture manager
@@ -60,7 +60,7 @@ void TEXMGR_Clean(GAME_TextureManager* mgr);
 /// <param name="mgr">Target texture manager</param>
 /// <param name="id">Target texture id</param>
 /// <param name="rect">Destination rect</param>
-void TEXMGR_Draw(const GAME_TextureManager* mgr, const char* id, const SDL_Rect* rect);
+void TEXMGR_Draw(const GAME_TextureManager* mgr, char* id, SDL_Rect* rect);
 
 /// <summary>
 ///  Convert a filename to a valid texture id
