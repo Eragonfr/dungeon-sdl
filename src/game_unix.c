@@ -33,7 +33,7 @@ int GAME_ImportAssetsAll(Game* game, const char* basePath, const char* filter) {
 
 			DIR* secdir = opendir(path);
 			if (!secdir) {
-				char* texId = filepathToTextureId(path, true, "/");
+				char* texId = filePathToTextureId(path, true, "/");
 				TEXMGR_Load(game->textureManager, texId, path);
 			}
 

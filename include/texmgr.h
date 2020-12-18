@@ -60,7 +60,7 @@ void TEXMGR_Clean(GAME_TextureManager* mgr);
 /// <param name="mgr">Target texture manager</param>
 /// <param name="id">Target texture id</param>
 /// <param name="rect">Destination rect</param>
-void TEXMGR_Draw(const GAME_TextureManager* mgr, char* id, SDL_Rect* rect);
+void TEXMGR_Draw(GAME_TextureManager* mgr, char* id, SDL_Rect* rect);
 
 /// <summary>
 ///  Convert a filename to a valid texture id
