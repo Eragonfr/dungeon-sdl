@@ -1,29 +1,20 @@
-#ifndef game_errcode_h
-#define game_errcode_h
+#pragma once
 
 /// <summary>
-///  Error code used when the initalialization of SDL fails
+///  SDL subsystem initialization failed
 /// </summary>
-#define GAME_ERR_SDL_INIT		     1
+#define ERRCODE_SDL_SUBSYS_INIT_FAILED	   1
 
 /// <summary>
-///  Error code used when the creation of SDL window fails
+///  SDL window initialization failed
 /// </summary>
-#define GAME_ERR_SDL_CREATE_WINDOW   2
+#define ERRCODE_SDL_WINDOW_INIT_FAILED     2
 
 /// <summary>
-///	 Error code used when the creation of SDL renderer fails
+///	 SDL renderer initialization failed
 /// </summary>
-#define GAME_ERR_SDL_CREATE_RENDERER 3
+#define ERRCODE_SDL_RENDER_INIT_FAILED     3
 
-/// <summary>
-///	 Error code used when the memory allocation for the game returns a null pointer
-/// </summary>
-#define GAME_ERR_GAME_MALLOC		 4
+#define ERRCODE_GAME_TEXMGR_MALLOC		   4
 
-/// <summary>
-///	 Error code used when the memory allocation for the texture manager returns a null pointer
-/// </summary>
-#define GAME_ERR_TEXMGR_MALLOC 5
-
-#endif
+#define ERRCODE_GAME_MALLOC				   5

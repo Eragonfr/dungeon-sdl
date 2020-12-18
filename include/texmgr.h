@@ -1,5 +1,4 @@
-#ifndef texmgr_h
-#define texmgr_h
+#pragma once
 
 #include "SDL_image.h"
 
@@ -9,7 +8,7 @@
 
 typedef struct GAME_TextureManager
 {
-	dict_t** dict;
+	//dict_t** dict;
 	SDL_Renderer* renderer;
 } GAME_TextureManager;
 
@@ -20,5 +19,3 @@ void TEXMGR_Drop(GAME_TextureManager* mgr, const char* id);
 void TEXMGR_Clean(GAME_TextureManager* mgr);
 
 void TEXMGR_Draw(GAME_TextureManager* mgr, const char* id, SDL_Rect dst);
-
-#endif // texmgr_h

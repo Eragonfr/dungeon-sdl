@@ -1,15 +1,13 @@
-#ifndef dict_h
-#define dict_h
+#pragma once
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-// based on https://gist.github.com/kylef/86784/fe97567ec9baf5c0dce3c7fcbec948e21dfcce09#file-dict-c
 
 /// <summary>
 ///  Struct which represents a dictionary item
 /// </summary>
-typedef struct dict_t_struct 
+typedef struct dict_t_struct
 {
     /// <summary>
     ///  Key
@@ -34,10 +32,12 @@ typedef struct dict_t_struct
 dict_t** dict_alloc(void);
 
 /// <summary>
-///  Free memory for a dictionary
+///  Add an item to the dictionary, if an item with the key already exists, replace it
 /// </summary>
 /// <param name="dict">Target dictionary</param>
-void dict_free(dict_t** dict);
+/// <param name="key">Target key</param>
+/// <param name="value">Value to set</param>
+void dict_addItem(dict_t** dict, char* key, void* value);
 
 /// <summary>
 ///  Get an item in a dictionary
@@ -55,11 +55,14 @@ void* dict_getItem(dict_t* dict, char* key);
 void dict_delItem(dict_t** dict, char* key);
 
 /// <summary>
-///  Add an item to the dictionary, if an item with the key already exists, replace it
+///  Get the size of a dictionary
 /// </summary>
 /// <param name="dict">Target dictionary</param>
-/// <param name="key">Target key</param>
-/// <param name="value">Value to set</param>
-void dict_addItem(dict_t** dict, char* key, void* value);
+/// <returns>Size of the dictionary</returns>
+int dict_size(dict_t* dict);
 
-#endif // !dict_h
+/// <summary>
+///  Free memory for a dictionary
+/// </summary>
+/// <param name="dict">Target dictionary</param>
+void dict_free(dict_t** dict);

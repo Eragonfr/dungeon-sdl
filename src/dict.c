@@ -1,18 +1,41 @@
-#include "dict.h"
+#include "../include/dict.h"
 
-dict_t** dict_alloc(void) 
+dict_t** dict_alloc(void)
 {
     return malloc(sizeof(dict_t));
 }
 
-void dict_free(dict_t** dict) 
+void dict_addItem(dict_t** dict, char* key, void* value)
 {
-    free(dict);
+    // memory allocation
+    dict_t* d = malloc(sizeof(struct dict_t_struct));
+    if (d == NULL)
+    {
+        // todo: errcode
+        return;
+    }
+
+    // set key
+    d->key = malloc(strlen(key) + 1);
+    if (d->key == NULL)
+    {
+        // todo: errcode
+        return;
+    }
+
+    strcpy(d->key, key);
+
+    // set value and next
+    d->value = value;
+    d->next = *dict;
+
+    *dict = d;
 }
 
 void* dict_getItem(dict_t* dict, char* key)
 {
     dict_t* ptr;
+
     // iterate over each item until next is null
     for (ptr = dict; ptr != NULL; ptr = ptr->next) 
     {
@@ -29,8 +52,9 @@ void* dict_getItem(dict_t* dict, char* key)
 void dict_delItem(dict_t** dict, char* key)
 {
     dict_t* ptr, * prev;
+
     // iterate over each item until next is null, and stors previous in prev
-    for (ptr = *dict, prev = NULL; ptr != NULL; prev = ptr, ptr = ptr->next) 
+    for (ptr = *dict, prev = NULL; ptr != NULL; prev = ptr, ptr = ptr->next)
     {
         // if key correspond
         if (strcmp(ptr->key, key) == 0) 
@@ -57,7 +81,7 @@ void dict_delItem(dict_t** dict, char* key)
                 // remove last item
                 prev->next = NULL;
             }
-            // it's the first item, and the last one at the same time
+            // it's the first item, and the last one at the same time (only item in dict)
             else 
             {
                 // empty dictionary
@@ -73,23 +97,23 @@ void dict_delItem(dict_t** dict, char* key)
     }
 }
 
-void dict_addItem(dict_t** dict, char* key, void* value)
+int dict_size(dict_t* dict)
 {
-    // if we already have a item with this key, delete it
-    dict_delItem(dict, key);
+    int size = 0;
 
-    // memory allocation
-    dict_t* d = malloc(sizeof(struct dict_t_struct));
-    if (d == NULL) { return; }
+    dict_t* ptr;
 
-    // set key
-    d->key = malloc(strlen(key) + 1);
+    // iterate over each item until next is null, and stors previous in prev
+    for (ptr = dict; ptr != NULL; ptr = ptr->next) 
+    {
+        // increment size each time ptr is not null
+        size++;
+    }
 
-    strcpy(d->key, key);
+    return size;
+}
 
-    // set value and next
-    d->value = value;
-    d->next = *dict;
-    
-    *dict = d;
+void dict_free(dict_t** dict)
+{
+    free(dict);
 }

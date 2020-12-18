@@ -1,4 +1,4 @@
-#include "game.h"
+#include "../include/game.h"
 
 #define WINDOW_WIDTH  800
 #define WINDOW_HEIGHT 600
@@ -11,7 +11,7 @@ int main(const int argc, const char* argv[])
 	unsigned int frameStart;
 	int frameTime;
 
-	Game* game = GAME_Init("Jeu incroyable", WINDOW_WIDTH, WINDOW_HEIGHT);
+	Game* game = GAME_Init("Jeu incroyable", WINDOW_WIDTH, WINDOW_HEIGHT, false);
 	GAME_ImportAssetsAll(game, "assets", "*.png");
 
 	while (game->isRunning)
@@ -32,6 +32,6 @@ int main(const int argc, const char* argv[])
 	}
 
 	GAME_Clean(game);
-	
+
 	return 0;
 }

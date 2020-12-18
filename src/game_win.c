@@ -1,4 +1,4 @@
-#include "game_win32.h"
+#include "../include/game_win.h"
 
 #ifdef _WIN32
 
@@ -15,7 +15,7 @@ int FindFilesRecursively(Game* game, LPCTSTR lpFolder, LPCTSTR lpFilePattern)
     // first we are going to process any subdirectories 
     PathCombine(szFullPattern, lpFolder, _T("*"));
     hFindFile = FindFirstFile(szFullPattern, &FindFileData);
-    
+
     if (hFindFile != INVALID_HANDLE_VALUE)
     {
         do
@@ -27,8 +27,7 @@ int FindFilesRecursively(Game* game, LPCTSTR lpFolder, LPCTSTR lpFilePattern)
                 PathCombine(szFullPattern, lpFolder, FindFileData.cFileName);
                 FindFilesRecursively(game, szFullPattern, lpFilePattern);
             }
-        }
-        while (FindNextFile(hFindFile, &FindFileData));
+        } while (FindNextFile(hFindFile, &FindFileData));
         FindClose(hFindFile);
     }
 
@@ -44,26 +43,17 @@ int FindFilesRecursively(Game* game, LPCTSTR lpFolder, LPCTSTR lpFilePattern)
                 // found a file; do something with it 
                 PathCombine(szFullPattern, lpFolder, FindFileData.cFileName);
 
-                TCHAR szWideString[MAX_PATH];
                 char szString[MAX_PATH];
                 size_t nNumCharConverted;
-                wcstombs_s(&nNumCharConverted, szString, MAX_PATH,
-                    szWideString, MAX_PATH);
-
+                wcstombs_s(&nNumCharConverted, szString, MAX_PATH, szFullPattern, MAX_PATH);
+                
                 int n = TEXMGR_Load(game->textureManager, "placeholder", szString);
                 SDL_Texture* tex = IMG_Load(szString);
 
-                printf("%d", tex);
-
-
-
-
-
                 // success/error
-                LOGGER_LogInformation("Imported resource: %ws", szFullPattern);
+                LOG_INFO("Imported resource: %ws", szFullPattern);
             }
-        }
-        while (FindNextFile(hFindFile, &FindFileData));
+        } while (FindNextFile(hFindFile, &FindFileData));
 
         FindClose(hFindFile);
     }

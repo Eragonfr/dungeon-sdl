@@ -1,5 +1,4 @@
-#ifndef game_h
-#define game_h
+#pragma once
 
 #include <stdio.h>
 #include <stdbool.h>
@@ -46,7 +45,7 @@ typedef struct Game
 /// <param name="width">Width of the window</param>
 /// <param name="height">Height of the window</param>
 /// <returns>If initialization succeeded, returns a pointer to a Game. Otherwhise returns NULL.</returns>
-Game* GAME_Init(const char* title, int width, int height);
+Game* GAME_Init(const char* title, int width, int height, bool fullscreen);
 
 /// <summary>
 ///  Handle events
@@ -79,5 +78,3 @@ void GAME_Clean(Game* game);
 /// <param name="filter">Filter</param>
 /// <param name="dir">Target directory</param>
 int GAME_ImportAssetsAll(Game* game, const char* dir, const char* filter);
-
-#endif // !game_h

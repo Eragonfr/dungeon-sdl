@@ -1,48 +1,64 @@
-#include "game.h"
+#include "../include/game.h"
 
-Game* GAME_Init(const char* title, int width, int height)
+Game* GAME_Init(const char* title, int width, int height, bool fullscreen)
 {
-	LOGGER_LogInformation("Initializing game: %s", title);
+	int flags = fullscreen ? SDL_WINDOW_FULLSCREEN : 0;
 
-	// initalize SDL
+	LOG_INFO("Initializing game: %s", title);
+
+	// initialize SDL
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
 	{
-		LOGGER_LogErrorAndExit(GAME_ERR_SDL_INIT, "SDL initialization failed");
+		LOG_SDL_CRITICAL(ERRCODE_SDL_SUBSYS_INIT_FAILED);
 	}
 
-	LOGGER_LogSuccess("SDL initialized");
+	LOG_SUCCESS("SDL subsystems initialized");
 
-	/// initialize window
-	SDL_Window* window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_SHOWN);
-	LOGGER_HandleNullPtr(window, GAME_ERR_SDL_CREATE_WINDOW, "SDL window initialized", "SDL window initialization failed");
+	// create window
+	SDL_Window* window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, flags | SDL_WINDOW_SHOWN);
+	if (window == NULL)
+	{
+		LOG_SDL_CRITICAL(ERRCODE_SDL_WINDOW_INIT_FAILED);
+	}
 
+	LOG_SUCCESS("SDL window initialized");
 
-	/// initialize renderer
+	// create renderer
 	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
-	LOGGER_HandleNullPtr(renderer, GAME_ERR_SDL_CREATE_RENDERER, "SDL renderer initialized", "SDL renderer initialization failed");
+	if (!renderer)
+	{
+		LOG_SDL_CRITICAL(ERRCODE_SDL_RENDER_INIT_FAILED);
+	}
 
-	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
+	LOG_SUCCESS("SDL renderer initialized");
 
 
-	/// initialize texture manager
+	// initialize texture manager
 	GAME_TextureManager* texmgr = (GAME_TextureManager*)malloc(sizeof(struct GAME_TextureManager));
-	LOGGER_HandleNullPtr(texmgr, GAME_ERR_TEXMGR_MALLOC, "Texture manager memory allocated", "Texture manager memory allocation failed");
+	if (texmgr == NULL)
+	{
+		LOG_CRITICAL(ERRCODE_GAME_TEXMGR_MALLOC, "Texture manager memory allocation failed");
+	}
 
-	// may says that game can be a nullptr but the function LOGGER_HandleNullPtr avoid it
-	texmgr->dict = dict_alloc();
-	texmgr->renderer = renderer;
+	// todo: dict malloc here
+
+//	texmgr->dict = dict_alloc();
+//	texmgr->renderer = renderer;
 
 	/// initialize game struct
 	Game* game = (Game*)malloc(sizeof(Game));
-	LOGGER_HandleNullPtr(game, GAME_ERR_GAME_MALLOC, "Game memory allocated", "Game memory allocation failed");
+	if (game == NULL)
+	{
+		LOG_CRITICAL(ERRCODE_GAME_MALLOC, "Game memory allocation failed");
+	}
 
-	// may says that game can be a nullptr but the function LOGGER_HandleNullPtr avoid it
 	game->isRunning = true;
 	game->renderer = renderer;
 	game->window = window;
 	game->textureManager = texmgr;
 
-	LOGGER_LogInformation("Game running");	
+	LOG_INFO("Game running");
 
 	return game;
 }
@@ -51,7 +67,7 @@ void GAME_HandleEvents(Game* game)
 {
 	SDL_Event event;
 	SDL_PollEvent(&event);
-	
+
 	switch (event.type)
 	{
 	case SDL_QUIT:
@@ -74,13 +90,13 @@ void GAME_Render(Game* game)
 void GAME_Clean(Game* game)
 {
 	SDL_DestroyWindow(game->window);
-	LOGGER_LogSuccess("SDL window destroyed");
+	LOG_SUCCESS("SDL window destroyed");
 
 	SDL_DestroyRenderer(game->renderer);
-	LOGGER_LogSuccess("SDL renderer destroyed");
+	LOG_SUCCESS("SDL renderer destroyed");
 
 	SDL_Quit();
-	LOGGER_LogSuccess("SDL initialized subsystems cleaned");
+	LOG_SUCCESS("SDL initialized subsystems cleaned");
 
-	LOGGER_LogSuccess("Game cleaned");
+	LOG_INFO("Game cleaned");
 }

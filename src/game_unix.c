@@ -1,13 +1,13 @@
-#include "game_unix.h"
+#include "../include/game_unix.h"
 
 #ifdef __unix__
 #include <sys/types.h>
 #include <dirent.h>
 #include <regex.h>
 
-int match(const char *string, const char *pattern) {
+int match(const char* string, const char* pattern) {
 	regex_t re;
-	if (regcomp(&re, pattern, REG_EXTENDED|REG_NOSUB) != 0) {
+	if (regcomp(&re, pattern, REG_EXTENDED | REG_NOSUB) != 0) {
 		return 0;
 	}
 	int status = regexec(&re, string, 0, NULL, 0);
@@ -21,8 +21,8 @@ int match(const char *string, const char *pattern) {
 int GAME_ImportAssetsAll(Game* game, const char* basePath, const char* filter) {
 	//const char* regex = "[^\\s]+(\\.(jpe?g|png|gif|bmp))$";
 	char path[1000];
-	struct dirent *dp;
-	DIR *dir = opendir(basePath);
+	struct dirent* dp;
+	DIR* dir = opendir(basePath);
 
 	if (!dir) {
 		return 0;
@@ -34,12 +34,14 @@ int GAME_ImportAssetsAll(Game* game, const char* basePath, const char* filter) {
 			strcat(path, "/");
 			strcat(path, dp->d_name);
 
-			DIR *secdir = opendir(path);
+			DIR* secdir = opendir(path);
 			if (!secdir) {
 				TEXMGR_Load(game->textureManager, "placeholder", path);
-				IMG_Load(path);
 
-				LOGGER_LogInformation("Imported resource: %s", path);
+				// todo: move to texmgr_load with success/error
+				// here: debug only
+
+				LOG_INFO("Imported resource: %s", path);
 			}
 
 			GAME_ImportAssetsAll(game, path, filter);
