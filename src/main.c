@@ -12,7 +12,7 @@ int main(int argc, char** argv)
 	int frameTime;
 
 	Game* game = GAME_Init("Jeu incroyable", WINDOW_WIDTH, WINDOW_HEIGHT, false);
-	GAME_ImportAssetsAll(game, "assets", "*.png");
+	GAME_ImportAssetsAll(game, "assets");
 
 	while (game->isRunning)
 	{

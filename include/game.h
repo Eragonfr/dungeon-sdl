@@ -77,4 +77,4 @@ void GAME_Clean(Game* game);
 /// <param name="game">Target game</param>
 /// <param name="filter">Filter</param>
 /// <param name="dir">Target directory</param>
-int GAME_ImportAssetsAll(Game* game, const char* dir, const char* filter);
+int GAME_ImportAssetsAll(Game* game, const char* dir);

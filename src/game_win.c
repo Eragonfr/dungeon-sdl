@@ -69,9 +69,10 @@ int findFilesRecursively(Game* game, LPCTSTR lpFolder, LPCTSTR lpFilePattern)
     return importedLineCount;
 }
 
-int GAME_ImportAssetsAll(Game* game, const char* dir, const char* filter)
+int GAME_ImportAssetsAll(Game* game, const char* dir)
 {
     // call FindFilesRecursively with dir and fileter converted as TCHAR
+    const char* filter = "*.png"
 
     TCHAR c_dir[MAX_PATH];
     TCHAR c_filter[520];
