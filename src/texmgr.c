@@ -1,4 +1,4 @@
-#include "../include/texmgr.h"
+#include "texmgr.h"
 
 int TEXMGR_Load(GAME_TextureManager* mgr, char* id, const char* file)
 {

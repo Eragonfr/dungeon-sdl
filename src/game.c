@@ -1,4 +1,4 @@
-#include "../include/game.h"
+#include "game.h"
 
 Game* GAME_Init(const char* title, int width, int height, bool fullscreen)
 {
